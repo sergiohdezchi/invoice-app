@@ -1,0 +1,28 @@
+.search-form {
+  padding-top: 8px;
+}
+
+.search-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.34375em;
+  width: 100%;
+
+  button {
+    min-width: 120px;
+  }
+}
+
+// Ajustes responsivos
+@media (max-width: 959px) {
+  .search-button-container {
+    margin-top: 8px;
+    margin-bottom: 0;
+    justify-content: flex-end;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
