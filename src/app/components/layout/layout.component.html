@@ -1,0 +1,31 @@
+<div class="app-container">
+  <!-- Header -->
+  <mat-toolbar color="primary" class="app-header">
+    <div class="container">
+      <div class="flex-container justify-space-between align-center full-width">
+        <div class="header-title">
+          <h1>Sistema de Consulta de Facturas</h1>
+        </div>
+        <div>
+          <span class="version-badge">v1.0</span>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <div class="container">
+      <ng-content></ng-content>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="flex-container justify-center">
+        <p class="footer-text">© {{currentYear}} - Sistema de Consulta de Facturas</p>
+      </div>
+    </div>
+  </footer>
+</div>
