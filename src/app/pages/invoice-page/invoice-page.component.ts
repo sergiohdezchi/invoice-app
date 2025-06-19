@@ -2,6 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvoiceSearchComponent } from '../../components/invoice-search/invoice-search.component';
 import { LayoutComponent } from '../../components/layout/layout.component';
+import { InvoiceService } from '../../services/invoice.service';
+import { InvoiceData } from '../../models/invoice';
+import { catchError, finalize, of, tap } from 'rxjs';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -17,8 +20,14 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./invoice-page.component.scss']
 })
 export class InvoicePageComponent implements OnInit {
-  constructor(private snackBar: MatSnackBar) {}
+  private invoiceService = inject(InvoiceService);
+  private snackBar = inject(MatSnackBar);
 
+  invoices: InvoiceData[] = [];
+  currentPage: number = 1;
+  totalPages: number = 0;
+  totalItems: number = 0;
+  pageSize: number = 10;
   loading: boolean = false;
   startDate: string | null = null;
   endDate: string | null = null;
@@ -46,5 +55,26 @@ export class InvoicePageComponent implements OnInit {
 
   loadInvoices(): void {
     this.loading = true;
+
+    this.invoiceService.getInvoices(this.startDate, this.endDate, this.currentPage, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.invoices = response.data;
+          this.totalPages = response.meta.total_pages;
+          this.totalItems = response.meta.total_count;
+        }),
+        catchError(err => {
+          console.error('Error al cargar facturas:', err);
+          this.snackBar.open('Error al cargar las facturas. Por favor, inténtalo de nuevo.', 'Cerrar', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
+          return of(null);
+        }),
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe();
   }
 }
