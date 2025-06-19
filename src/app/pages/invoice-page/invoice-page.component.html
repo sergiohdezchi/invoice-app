@@ -13,7 +13,15 @@
     </section>
 
     <section class="pagination-section">
-
+      <app-pagination
+        *ngIf="totalPages > 0"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [totalItems]="totalItems"
+        [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)">
+      </app-pagination>
     </section>
   </div>
 </app-layout>

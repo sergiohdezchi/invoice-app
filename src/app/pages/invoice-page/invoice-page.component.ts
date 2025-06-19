@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvoiceSearchComponent } from '../../components/invoice-search/invoice-search.component';
 import { InvoiceListComponent } from '../../components/invoice-list/invoice-list.component';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { LayoutComponent } from '../../components/layout/layout.component';
 import { InvoiceService } from '../../services/invoice.service';
 import { InvoiceData } from '../../models/invoice';
@@ -16,6 +17,7 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
     LayoutComponent,
     InvoiceSearchComponent,
     InvoiceListComponent,
+    PaginationComponent,
     MatSnackBarModule
   ],
   templateUrl: './invoice-page.component.html',
@@ -54,6 +56,25 @@ export class InvoicePageComponent implements OnInit {
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
   }
+
+    onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadInvoices();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+
+    this.snackBar.open(`Mostrando ${size} facturas por página`, '', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['info-snackbar']
+    });
+
+    this.loadInvoices();
+  }
+
 
   loadInvoices(): void {
     this.loading = true;
