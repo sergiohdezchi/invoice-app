@@ -4,12 +4,13 @@
       <app-invoice-search (search)="onSearch($event)"></app-invoice-search>
     </section>
 
-
-
     <section class="results-section">
-
+      <app-invoice-list
+        [invoices]="invoices"
+        [totalInvoices]="totalItems"
+        [loading]="loading">
+      </app-invoice-list>
     </section>
-
 
     <section class="pagination-section">
 

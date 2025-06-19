@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvoiceSearchComponent } from '../../components/invoice-search/invoice-search.component';
+import { InvoiceListComponent } from '../../components/invoice-list/invoice-list.component';
 import { LayoutComponent } from '../../components/layout/layout.component';
 import { InvoiceService } from '../../services/invoice.service';
 import { InvoiceData } from '../../models/invoice';
@@ -14,6 +15,7 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
     CommonModule,
     LayoutComponent,
     InvoiceSearchComponent,
+    InvoiceListComponent,
     MatSnackBarModule
   ],
   templateUrl: './invoice-page.component.html',
