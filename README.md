@@ -4,56 +4,56 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-To start a local development server, run:
 
+### 🚀 Requisitos previos
+- Node.js (v16 o superior recomendado)
+
+- npm o Yarn
+
+- Angular CLI instalado globalmente:
 ```bash
-ng serve
+npm install -g @angular/cli
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### ⚙️ Configuración del entorno
 
-## Code scaffolding
+Antes de ejecutar la aplicación, asegúrate de configurar correctamente el entorno.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Crear o edita el archivo de entorno src/environments/environment.ts
 
 ```bash
-ng generate --help
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api/v1', # Dirección del backend (API)
+  clientId: 'frontend_app', # ID del cliente para autenticación
+  apiKey: 'frontend_api_key' # Clave del cliente para autenticación
+};
+
 ```
-
-## Building
-
-To build the project run:
-
+y src/environments/environment.development.ts
 ```bash
-ng build
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api/v1',
+  clientId: 'frontend_app',
+  apiKey: 'frontend_api_key'
+};
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+### 📦 Instalación de dependencias
+Desde la raíz del proyecto, ejecuta:
 ```bash
-ng test
+npm install
+# o
+yarn install
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+ ### Servir en entorno de desarrollo
 ```bash
-ng e2e
+yarn start
+#0
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ ### Abrir app en el navegador
+```bash
+http://localhost:4200
+```
