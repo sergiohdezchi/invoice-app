@@ -5,8 +5,18 @@
         <div class="header-title">
           <h1>Sistema de Consulta de Facturas</h1>
         </div>
-        <div>
-          <span class="version-badge">v1.0</span>
+        <div class="flex-container align-center">
+          <div *ngIf="user$ | async as user" class="user-info">
+            <span class="user-name">{{ user.name }}</span>
+          </div>
+          <div>
+            <button mat-icon-button (click)="logout()" aria-label="Cerrar sesión" title="Cerrar sesión">
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+          </div>
+          <div>
+            <span class="version-badge">v1.0</span>
+          </div>
         </div>
       </div>
     </div>

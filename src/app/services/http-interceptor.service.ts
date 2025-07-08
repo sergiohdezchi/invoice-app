@@ -6,7 +6,8 @@ import { switchMap, catchError, throwError } from 'rxjs';
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const authService = inject(AuthService);
 
-  if (req.url.includes('/auth/token')) {
+  // Skip authentication for login and register endpoints
+  if (req.url.includes('/auth/login') || req.url.includes('/auth/register')) {
     return next(req);
   }
 
@@ -21,12 +22,18 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   } else {
     return authService.refreshToken().pipe(
       switchMap(response => {
-        const authReq = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${response.token}`
-          }
-        });
-        return next(authReq);
+        if (response && response.token) {
+          const authReq = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${response.token}`
+            }
+          });
+          return next(authReq);
+        } else {
+          // If we can't get a token, there's no authentication
+          authService.logoutLocally(); // Clean up local storage
+          return throwError(() => new Error('No se pudo autenticar'));
+        }
       }),
       catchError(error => {
         return throwError(() => new Error('No se pudo autenticar'));
