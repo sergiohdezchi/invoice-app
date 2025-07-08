@@ -1,28 +1,30 @@
 <div class="app-container">
-  <mat-toolbar color="primary" class="app-header">
+  <mat-toolbar class="app-header">
     <div class="container">
       <div class="flex-container justify-space-between align-center full-width">
         <div class="header-title">
-          <h1>Sistema de Consulta de Facturas</h1>
+          <div class="logo-container">
+            <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+            <h1 class="brand-name">InvoiceVault <span class="brand-accent">Pro</span></h1>
+          </div>
         </div>
         <div class="flex-container align-center">
           <div *ngIf="user$ | async as user" class="user-info">
+            <div class="avatar">{{ user.name.charAt(0) }}</div>
             <span class="user-name">{{ user.name }}</span>
           </div>
           <div>
-            <button mat-icon-button (click)="logout()" aria-label="Cerrar sesión" title="Cerrar sesión">
+            <button mat-flat-button color="accent" (click)="logout()" class="logout-button" aria-label="Cerrar sesión">
               <mat-icon>exit_to_app</mat-icon>
+              <span>Salir</span>
             </button>
-          </div>
-          <div>
-            <span class="version-badge">v1.0</span>
           </div>
         </div>
       </div>
     </div>
   </mat-toolbar>
 
-  <main class="app-main">
+  <main class="app-main page-enter">
     <div class="container">
       <ng-content></ng-content>
     </div>
@@ -30,8 +32,17 @@
 
   <footer class="app-footer">
     <div class="container">
-      <div class="flex-container justify-center">
-        <p class="footer-text">© {{currentYear}} - Sistema de Consulta de Facturas</p>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <mat-icon class="logo-icon-sm">account_balance_wallet</mat-icon>
+          <span class="brand-name-sm">InvoiceVault Pro</span>
+        </div>
+        <p class="footer-text">© {{currentYear}} - Todos los derechos reservados</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Términos</a>
+          <a href="#" class="footer-link">Privacidad</a>
+          <a href="#" class="footer-link">Ayuda</a>
+        </div>
       </div>
     </div>
   </footer>

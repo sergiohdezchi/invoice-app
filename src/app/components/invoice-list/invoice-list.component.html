@@ -1,26 +1,33 @@
-<mat-card appearance="outlined">
+<mat-card appearance="outlined" class="results-card">
   <mat-card-header class="card-header">
+    <div class="header-icon">
+      <mat-icon>receipt_long</mat-icon>
+    </div>
     <mat-card-title>Resultados</mat-card-title>
-    <span class="total-count" *ngIf="totalInvoices > 0">
+    <span class="total-count" *ngIf="totalInvoices > 0" [@countAnimation]>
       {{ totalInvoices }} facturas encontradas
     </span>
   </mat-card-header>
 
   <div class="table-container">
 
-    <div *ngIf="loading" class="loading-container">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p class="mat-body-1 mt-2">Cargando facturas...</p>
+    <div *ngIf="loading" class="loading-container" [@fadeAnimation]>
+      <div class="loader">
+        <div class="spinner-ring"></div>
+      </div>
+      <p class="loading-text">Cargando facturas...</p>
     </div>
 
-    <div *ngIf="!loading && (!invoices || invoices.length === 0)" class="empty-container">
-      <mat-icon class="empty-icon">receipt_long</mat-icon>
+    <div *ngIf="!loading && (!invoices || invoices.length === 0)" class="empty-container" [@fadeAnimation]>
+      <div class="empty-illustration">
+        <mat-icon class="empty-icon">receipt_long</mat-icon>
+      </div>
       <h3 class="empty-title">No se encontraron facturas</h3>
       <p class="empty-message">No hay facturas que coincidan con los criterios de búsqueda.</p>
       <p class="empty-suggestion">Intenta cambiar el rango de fechas o verifica que haya datos disponibles para el período seleccionado.</p>
     </div>
 
-    <table mat-table [dataSource]="dataSource" matSort *ngIf="!loading && invoices && invoices.length > 0">
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="!loading && invoices && invoices.length > 0" [@tableAnimation]="invoices.length">
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

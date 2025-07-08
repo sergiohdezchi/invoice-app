@@ -27,6 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class InvoiceSearchComponent {
   @Output() search = new EventEmitter<SearchCriteria>();
+  
+  loading: boolean = false;
 
   searchForm: FormGroup;
 
@@ -61,10 +63,27 @@ export class InvoiceSearchComponent {
 
   onSearch(): void {
     if (this.searchForm.valid) {
+      this.loading = true;
       this.search.emit({
         startDate: this.formatDate(this.startDateControl.value),
         endDate: this.formatDate(this.endDateControl.value)
       });
+      
+      // Simulating end of loading after data is fetched
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     }
+  }
+  
+  onReset(): void {
+    const today = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    
+    this.searchForm.reset({
+      startDate: thirtyDaysAgo,
+      endDate: today
+    });
   }
 }

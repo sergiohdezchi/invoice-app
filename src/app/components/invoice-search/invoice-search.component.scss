@@ -1,5 +1,56 @@
+.search-card {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  overflow: visible;
+  animation: fadeIn 0.6s, slideInUp 0.6s;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.search-header {
+  position: relative;
+  padding-bottom: 16px;
+  
+  .header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
+    color: white;
+    position: absolute;
+    top: -24px;
+    left: 24px;
+    box-shadow: var(--shadow-md);
+    animation: fadeIn 0.8s, pulse 2s infinite;
+    
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  mat-card-title {
+    margin-left: 48px;
+    font-weight: 600;
+  }
+}
+
 .search-form {
-  padding-top: 8px;
+  padding-top: 16px;
+  
+  .mat-form-field {
+    transition: all var(--transition-normal);
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
 }
 
 .search-button-container {
@@ -8,9 +59,65 @@
   align-items: center;
   margin-bottom: 1.34375em;
   width: 100%;
+  gap: 16px;
 
   button {
     min-width: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.search-button {
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  &:hover:after {
+    left: 100%;
+  }
+}
+
+.reset-button {
+  color: var(--secondary-text-color);
+  border-color: var(--divider-color);
+  transition: all 0.3s;
+  
+  &:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+}
+
+.button-loader {
+  display: inline-block;
+  margin-left: 10px;
+  
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s ease-in-out infinite;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
