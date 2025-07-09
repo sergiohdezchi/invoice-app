@@ -3,7 +3,7 @@
 <div align="center">
   <img src="assets/invoicevault-logo.png" alt="InvoiceVault Pro Logo">
   
-  <p><em>Gestión profesional de facturas con un toque moderno</em></p>
+  <p><em>Sistema de Gestión Inteligente de Facturas</em></p>
 
   [![Angular](https://img.shields.io/badge/Angular-v19.2-DD0031?style=flat-square&logo=angular)](https://angular.io/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-v5.7-007ACC?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
