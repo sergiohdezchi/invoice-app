@@ -1,7 +1,7 @@
 # 📊 InvoiceVault Pro
 
 <div align="center">
-  <img src="assets/invoicevault-logo.png" alt="InvoiceVault Pro Logo" width="200">
+  <img src="assets/invoicevault-logo.png" alt="InvoiceVault Pro Logo">
   
   <p><em>Gestión profesional de facturas con un toque moderno</em></p>
 
