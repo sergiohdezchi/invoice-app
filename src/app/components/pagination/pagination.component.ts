@@ -20,10 +20,15 @@ export class PaginationComponent {
   onPageChange(event: PageEvent): void {
     const newPageIndex = event.pageIndex + 1;
 
+    // Para evitar eventos redundantes, primero manejamos el cambio de tamaño
     if (event.pageSize !== this.pageSize) {
       this.pageSizeChange.emit(event.pageSize);
+      // Si cambia el tamaño, no emitimos el cambio de página en el mismo evento
+      // ya que el cambio de tamaño ya hará que se recarguen los datos
+      return;
     }
 
+    // Solo si no ha cambiado el tamaño, emitimos el cambio de página
     if (newPageIndex !== this.currentPage) {
       this.pageChange.emit(newPageIndex);
     }

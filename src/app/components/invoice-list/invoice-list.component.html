@@ -27,7 +27,7 @@
       <p class="empty-suggestion">Intenta cambiar el rango de fechas o verifica que haya datos disponibles para el período seleccionado.</p>
     </div>
 
-    <table mat-table [dataSource]="dataSource" matSort *ngIf="!loading && invoices && invoices.length > 0" [@tableAnimation]="invoices.length">
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="!loading && invoices && invoices.length > 0" [@tableAnimation]="true">
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

@@ -58,26 +58,35 @@ export class InvoicePageComponent implements OnInit {
   }
 
     onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadInvoices();
+    if (page !== this.currentPage) {
+      // Si ha cambiado la página, actualizar y cargar
+      this.currentPage = page;
+      this.loadInvoices();
+    }
   }
 
   onPageSizeChange(size: number): void {
-    this.pageSize = size;
-
-    this.snackBar.open(`Mostrando ${size} facturas por página`, '', {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-      panelClass: ['info-snackbar']
-    });
-
-    this.loadInvoices();
+    if (size !== this.pageSize) {
+      this.pageSize = size;
+      // Al cambiar el tamaño de página, volver a la primera página
+      this.currentPage = 1;
+      
+      this.snackBar.open(`Mostrando ${size} facturas por página`, '', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['info-snackbar']
+      });
+      
+      this.loadInvoices();
+    }
   }
 
 
   loadInvoices(): void {
     this.loading = true;
+    // Limpiar las facturas antes de cargar las nuevas para evitar duplicados
+    this.invoices = [];
 
     this.invoiceService.getInvoices(this.startDate, this.endDate, this.currentPage, this.pageSize)
       .pipe(

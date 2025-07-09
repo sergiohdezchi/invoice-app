@@ -31,7 +31,12 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
       ])
     ]),
     trigger('tableAnimation', [
-      transition('* => *', [
+      transition(':leave', [
+        query('tr', [
+          animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+        ], { optional: true })
+      ]),
+      transition(':enter', [
         query('tr', [
           style({ opacity: 0, transform: 'translateY(10px)' }),
           stagger(50, [
@@ -50,8 +55,14 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 })
 export class InvoiceListComponent implements AfterViewInit {
   @Input() set invoices(value: InvoiceData[]) {
-    this._invoices = value;
-    this.dataSource.data = value;
+    // Asegurarse de que el valor no sea nulo antes de asignarlo
+    this._invoices = value || [];
+    // Actualiza el dataSource con una nueva instancia para forzar una actualización completa
+    this.dataSource = new MatTableDataSource<InvoiceData>(this._invoices);
+    // Vuelve a aplicar el ordenamiento si ya está inicializado
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
   get invoices(): InvoiceData[] {
     return this._invoices;
@@ -68,7 +79,26 @@ export class InvoiceListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
+    // Aplicar el ordenamiento al dataSource
     this.dataSource.sort = this.sort;
+    
+    // Aplicar configuraciones adicionales para mejorar el rendimiento de la tabla
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'id':
+          return item.attributes.id;
+        case 'invoice_number':
+          return item.attributes.invoice_number;
+        case 'total':
+          return Number(item.attributes.total);
+        case 'status':
+          return item.attributes.status;
+        case 'formatted_date':
+          return item.attributes.formatted_date;
+        default:
+          return '';
+      }
+    };
   }
 
   getStatusClass(status: string): string {
